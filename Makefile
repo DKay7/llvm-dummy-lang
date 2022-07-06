@@ -1,7 +1,6 @@
-CXX ?= clang++
-CXXFLAGS ?= -O2 -g -o $@ `llvm-config --cxxflags`
+CXX = clang++
+CXXFLAGS = -O2 -g `llvm-config --cxxflags --ldflags --system-libs --libs core` -o $@ 
 
-
-parser: lang.cpp
-	$(CXX) $(CXXFLAGS) $<
+lang: lang.cpp
+	$(CXX)  $< $(CXXFLAGS)
 
