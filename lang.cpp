@@ -67,6 +67,7 @@ static int get_token() {
         int num_points = 0;
 
         do {
+            number_str += last_char;
             last_char = getchar ();
             
             if (last_char == '.')
@@ -523,7 +524,6 @@ static void handle_definition () {
         fprintf (stderr, "Parsed a func. definition\n");
 
         if (auto *FnIR = FnAST->codegen()) {
-            fprintf(stderr, "Read function definition:");
             FnIR->print(errs());
             fprintf(stderr, "\n");
         }
@@ -536,7 +536,6 @@ static void handle_extern  () {
         fprintf (stderr, "Parsed an extern\n");
 
         if (auto *FnIR = ProtoAST->codegen()) {
-            fprintf(stderr, "Read extern: ");
             FnIR->print(errs());
             fprintf(stderr, "\n");
         }
@@ -549,7 +548,6 @@ static void handle_toplevel_expression () {
     if (auto FnAST = parse_toplevel_expression()){
         fprintf (stderr, "Parsed an top-level expression\n");
         if (auto *FnIR = FnAST->codegen()) {
-            fprintf(stderr, "Read top-level expression:");
             FnIR->print(errs());
             fprintf(stderr, "\n");
 
